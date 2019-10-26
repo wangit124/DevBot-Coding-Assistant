@@ -14,7 +14,7 @@ app.use(express.static('./public'));
 
 /* Receive create shortcut */
 app.post("/create", function(req, res) {
-  console.log(JSON.stringify(req.body));
+  alert(JSON.stringify(req.body));
 });
 
 /* GET home page. */
