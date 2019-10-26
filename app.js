@@ -164,7 +164,8 @@ const skillBuilder = Alexa.SkillBuilders.custom()
   .addErrorHandlers(ErrorHandler);
 
 const skill = skillBuilder.create();
+
 const adapter = new ExpressAdapter(skill, true, true);
-app.post("/alexa", adapter.getRequestHandlers());
+app.post("/", adapter.getRequestHandlers());
 
 module.exports = app;
