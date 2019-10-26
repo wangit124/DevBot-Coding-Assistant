@@ -27,7 +27,9 @@ app.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-app.post("/alexa", adapter.getRequestHandlers());
+app.post("/alexa", (req, res) => {
+  console.log(req, res)
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
