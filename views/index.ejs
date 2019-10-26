@@ -1,11 +1,146 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <title>DevBot</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <div class="jumbotron body" style="padding-top: 20px !important;">
+    <h1 class="header">Welcome to &lt;DevBot /&gt;.</h1>
+    <div class="row">
+      <div id="code-commands">
+        <div class="col-lg-12">
+          <pre class="prettyprint linenums" id="code-field" contenteditable="true">class butt{}</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="prototype">
+            <div id="prototype-row">
+              <div id="prototype-header">
+                <h5>Popular Shortcuts</h5>
+                <p style="font-size: 14px;">Usage: "DevBot {command}"</p>
+              </div>
+              <div id="contact"><button type="button" class="btn btn-primary btn" data-toggle="modal"
+                  data-target="#contact-modal">+</button></div>
+            </div>
+            <div class="command-list">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="recommended-field">
+      <div class="horizontal-scroll">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="..." alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="..." alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="..." alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="..." alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="..." alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="..." alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Command Modal -->
+  <div id="contact-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Create Command</h3>
+          <a class="close" data-dismiss="modal">×</a>
+        </div>
+        <form id="contactForm" name="contact" role="form">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="shortcut">Shortcut</label>
+              <input type="text" name="shortcut" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="language">Language</label>
+              <select class="form-control" id="language">
+                <option>Java</option>
+                <option>Python</option>
+                <option>Bash</option>
+                <option>SQL</option>
+                <option>HTML</option>
+                <option>XML</option>
+                <option>SQL</option>
+                <option>CSS</option>
+                <option>Javascript</option>
+                <option>Makefile</option>
+                <option>Rust</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="data">Body</label>
+              <textarea rows="12" name="data" class="form-control"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <input type="submit" class="btn btn-primary" value="Create" id="create-btn">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  $('#create-btn').click(e => {
+    e.preventDefault();
+    $.post('/create', { hello: 'hello' }, (res) => {
+      console.log(res);
+    });
+  });
+</script>
+
 </html>

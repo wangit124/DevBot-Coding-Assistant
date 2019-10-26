@@ -1,8 +1,143 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100vh;
+  width: 100vw;
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url('/images/coolbg.png');
+  background-position: center;
+  background-size: cover;
+  overflow-x: hidden;
 }
 
-a {
-  color: #00B7FF;
+.body {
+  height: 100vh;
+  width: 100vw;
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url('/images/coolbg.png');
+  background-position: center;
+  background-size: cover;
+  overflow-x: hidden;
+
+}
+
+/* desert scheme ported from vim to google prettify */
+pre.prettyprint { display: block; background-color: #333 }
+pre .nocode { background-color: none; color: #000 }
+pre .str { color: #ffa0a0 } /* string  - pink */
+pre .kwd { color: #f0e68c; font-weight: bold }
+pre .com { color: #87ceeb } /* comment - skyblue */
+pre .typ { color: #98fb98 } /* type    - lightgreen */
+pre .lit { color: #cd5c5c } /* literal - darkred */
+pre .pun { color: black }    /* punctuation */
+pre .pln { color: black }    /* plaintext */
+pre .tag { color: #f0e68c; font-weight: bold } /* html/xml tag    - lightyellow */
+pre .atn { color: #bdb76b; font-weight: bold } /* attribute name  - khaki */
+pre .atv { color: #ffa0a0 } /* attribute value - pink */
+pre .dec { color: #98fb98 } /* decimal         - lightgreen */
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums { margin-top: 0; margin-bottom: 0; color: #AEAEAE } /* IE indents via margin-left */
+li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: decimal; }
+/* Alternate shading for lines */
+li.L1,li.L3,li.L5,li.L7,li.L9 {
+  color: 'black';
+ }
+
+#code-field {
+  height: 450px;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+}
+
+#recommended-field {
+  height: 175px;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 10px;
+  margin-right: 3px;
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.horizontal-scroll .card {
+  white-space: wrap;
+  overflow:hidden;
+  margin: 10px;
+  display: inline-block;
+  height: 120px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.prototype {
+  height: 450px;
+  width: 300px;
+  border-radius: 10px;
+  background: white;
+  margin-left: 10px;
+  margin-right: 25px;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+  overflow-x: hidden;
+}
+
+#prototype-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+#prototype-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#code-commands {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.command-list {
+  height: 400px;
+}
+
+#code-field {
+  width: '100%';
+}
+
+@media only screen and (max-width: 1000px) {
+  .prototype {
+    display: none;
+  }
+}
+
+@media print {
+  pre.prettyprint { background-color: none }
+  pre .str, code .str { color: #060 }
+  pre .kwd, code .kwd { color: #006; font-weight: bold }
+  pre .com, code .com { color: #600; font-style: italic }
+  pre .typ, code .typ { color: #404; font-weight: bold }
+  pre .lit, code .lit { color: #044 }
+  pre .pun, code .pun { color: #440 }
+  pre .pln, code .pln { color: #000 }
+  pre .tag, code .tag { color: #006; font-weight: bold }
+  pre .atn, code .atn { color: #404 }
+  pre .atv, code .atv { color: #060 }
 }
