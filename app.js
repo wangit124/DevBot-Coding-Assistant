@@ -35,7 +35,6 @@ app.get("/", async function(req, res) {
   });
   client.connect(err => {
     if (err) {
-      res.render("index", { data: [] })
       return;
     };
 
