@@ -5,7 +5,7 @@ body {
   background-image: url('/images/coolbg.png');
   background-position: center;
   background-size: cover;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .body {
@@ -15,7 +15,7 @@ body {
   background-image: url('/images/coolbg.png');
   background-position: center;
   background-size: cover;
-  overflow-x: hidden;
+  overflow: hidden;
 
 }
 
@@ -43,9 +43,10 @@ li.L1,li.L3,li.L5,li.L7,li.L9 {
  }
 
 #code-field {
-  height: 450px;
+  height: 460px;
   background: white;
   border-radius: 10px;
+  font-size: 17px;
   padding: 20px;
   -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
@@ -53,11 +54,11 @@ li.L1,li.L3,li.L5,li.L7,li.L9 {
 }
 
 #recommended-field {
-  height: 175px;
+  height: 180px;
   background: white;
   border-radius: 10px;
   padding: 20px;
-  margin-top: 10px;
+  margin-top: 30px;
   margin-right: 3px;
   -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
@@ -79,12 +80,12 @@ li.L1,li.L3,li.L5,li.L7,li.L9 {
 }
 
 .prototype {
-  height: 450px;
+  height: 460px;
   width: 300px;
   border-radius: 10px;
   background: white;
   margin-left: 10px;
-  margin-right: 25px;
+  margin-right: 21px;
   padding: 20px;
   -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
@@ -139,6 +140,20 @@ li.L1,li.L3,li.L5,li.L7,li.L9 {
   animation: pulse 0.4s alternate infinite ease-in-out;
 }
 
+#big-header-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#language-switch {
+  width: 100px;
+  height: 30px;
+}
+
 @keyframes pulse {
   to {
     transform: scale(0.8);
@@ -148,7 +163,16 @@ li.L1,li.L3,li.L5,li.L7,li.L9 {
 
 @media only screen and (max-width: 1000px) {
   .prototype {
-    display: none;
+    flex: 1;
+
+  }
+
+  body {
+    overflow-y: scroll;
+  }
+
+  .body {
+    overflow-y: scroll;
   }
 }
 
