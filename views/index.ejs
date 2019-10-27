@@ -14,6 +14,18 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel='stylesheet' href='/stylesheets/style.css' />
+
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
 </head>
 
 <body>
@@ -22,7 +34,7 @@
     <div class="row">
       <div id="code-commands">
         <div class="col-lg-12">
-          <pre class="prettyprint linenums" id="code-field" contenteditable="true">class butt{}</pre>
+          <pre class="prettyprint linenums" id="code-field" contenteditable="true">class DevBot {}</pre>
         </div>
       </div>
       <div class="row">
@@ -37,11 +49,19 @@
                   data-target="#contact-modal">+</button></div>
             </div>
             <div class="command-list">
+              <% data.forEach(function(command){ %>
+              <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-text"><%= command.shortcut %></h5>
+                </div>
+              </div>
+              <% }) %>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <div id="recommended-field">
       <div class="horizontal-scroll">
         <div class="card" style="width: 18rem;">
@@ -102,7 +122,7 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="shortcut">Shortcut</label>
-              <input type="text" name="shortcut" class="form-control">
+              <input type="text" name="shortcut" class="form-control" id="shortcut_input">
             </div>
             <div class="form-group">
               <label for="language">Language</label>
@@ -121,26 +141,53 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="data">Body</label>
-              <textarea rows="12" name="data" class="form-control"></textarea>
+              <label for="data">Full Body</label>
+              <textarea rows="12" name="data" class="form-control" id="data_input"></textarea>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <input type="submit" class="btn btn-primary" value="Create" id="create-btn">
+            <button class="btn btn-primary" value="Create" id="create-btn" type="submit" disabled="true">
+              <span id="loader" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span id="submit_text"></span>
+            </button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </body>
+
+<!-- Loading animation and post requests -->
 <script>
+  $('#create-btn').removeAttr('disabled');
+  $('#loader').hide();
+  $('#submit_text').text('Create');
   $('#create-btn').click(e => {
-    e.preventDefault();
-    $.post('/create', { hello: 'hello' }, (res) => {
-      console.log(res);
+    if (!$('#shortcut_input').val() || !$('#data_input').val()) return false;
+    $('#create-btn').attr('disabled', 'true');
+    $('#loader').show();
+    $('#submit_text').text('Loading...');
+    let post_data = {
+      shortcut: $('#shortcut_input').val(),
+      language: $('#language').val(),
+      full: $('#data_input').val()
+    }
+    $.post('/create', post_data, function (data) {
+      if (data) setTimeout(() => {
+        window.location.href = '/';
+        document.location.refresh();
+        $('#create-btn').removeAttr('disabled');
+        $('#loader').hide();
+        $('#submit_text').text('Create');
+        if (data === 'Failure') {
+          alert("Please enter a unique shortcut!")
+        }
+      }, 1500);
     });
   });
 </script>
+
+<script src="/javascripts/firebase.js"></script>
 
 </html>

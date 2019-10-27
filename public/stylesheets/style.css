@@ -122,6 +122,30 @@ li.L1,li.L3,li.L5,li.L7,li.L9 {
   width: '100%';
 }
 
+.loader {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: auto;
+  font-family: Consolas, Menlo, Monaco, monospace;
+  font-weight: bold;
+  font-size: 100px;
+  height: 100px;
+  width: 100px;
+  background: white;
+  opacity: 0.8;
+  display: inline-block;
+  animation: pulse 0.4s alternate infinite ease-in-out;
+}
+
+@keyframes pulse {
+  to {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+}
+
 @media only screen and (max-width: 1000px) {
   .prototype {
     display: none;
