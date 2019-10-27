@@ -14,10 +14,22 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("./public"));
-
+var options = { 
+  server: { 
+    socketOptions: { 
+      keepAlive: 300000, connectTimeoutMS: 30000 
+    } 
+  }, 
+  replset: { 
+    socketOptions: { 
+      keepAlive: 300000, 
+      connectTimeoutMS : 30000 
+    } 
+  } 
+};
 /* GET home page. */
 app.get("/", async function(req, res) {
-  const client = new MongoClient(uri, {
+  const client = new MongoClient(uri, options, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
@@ -66,13 +78,25 @@ app.post("/create", function(req, res) {
 
   res.send(check ? "success!" : "Failure!");
 });
-
+var options = { 
+  server: { 
+    socketOptions: { 
+      keepAlive: 300000, connectTimeoutMS: 30000 
+    } 
+  }, 
+  replset: { 
+    socketOptions: { 
+      keepAlive: 300000, 
+      connectTimeoutMS : 30000 
+    } 
+  } 
+};
 /* Receive alexa query */
 app.post("/alexa", async function(req, res) {
   const body = req && req.body;
   const { data: query } = body;
 
-  const client = new MongoClient(uri, {
+  const client = new MongoClient(uri, options, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });

@@ -1,10 +1,24 @@
 const MongoClient = require("mongodb").MongoClient;
 const uri =
   "mongodb+srv://howardwang:234Ar234@cluster0-vuff4.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, {
+  var options = { 
+    server: { 
+      socketOptions: { 
+        keepAlive: 300000, connectTimeoutMS: 30000 
+      } 
+    }, 
+    replset: { 
+      socketOptions: { 
+        keepAlive: 300000, 
+        connectTimeoutMS : 30000 
+      } 
+    } 
+  };
+const client = new MongoClient(uri, options, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
 client.connect(err => {
   if (err) return console.log(err);
 

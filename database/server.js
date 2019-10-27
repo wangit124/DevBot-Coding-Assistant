@@ -4,8 +4,22 @@ const uri =
 const request = require("request");
 const https = require("https");
 
+var options = { 
+  server: { 
+    socketOptions: { 
+      keepAlive: 300000, connectTimeoutMS: 30000 
+    } 
+  }, 
+  replset: { 
+    socketOptions: { 
+      keepAlive: 300000, 
+      connectTimeoutMS : 30000 
+    } 
+  } 
+};
+
 const addCommand = (collect, shortcut, language, body) => {
-  const client = new MongoClient(process.env.DATABASE_URI, {
+  const client = new MongoClient(process.env.DATABASE_URI, options, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
