@@ -5,7 +5,7 @@ const request = require("request");
 const https = require("https");
 
 const addCommand = (collect, shortcut, language, body) => {
-  const client = new MongoClient(process.env.URI, {
+  const client = new MongoClient(process.env.DATABASE_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
