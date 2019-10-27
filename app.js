@@ -22,7 +22,10 @@ app.get("/", async function(req, res) {
     useUnifiedTopology: true
   });
   client.connect(err => {
-    if (err) return res.render("index", { data: [] });;
+    if (err) {
+      res.render("index", { data: [] })
+      return;
+    };
 
     const db = client.db("cluster0");
 
