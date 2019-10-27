@@ -33,7 +33,7 @@ const addCommand = (collect, shortcut, language, body) => {
 };
 // Function for fetching data from github
 const fetchGithub = async (query, language) => {
-  var options = {
+  /* var options = {
     host: "api.github.com",
     path: "/search/repositories",
     method: "GET",
@@ -53,15 +53,15 @@ const fetchGithub = async (query, language) => {
     response.on("end", function() {
       console.log("Body: ", body);
     });
-  });
+  }); */
 };
 
 //Update recommendations
 const updateRecommendations = async newQuery => {
   const { value, params } = newQuery;
 
-  const data = await fetchGithub(value, params[0]);
-  console.log(data);
+  // const data = await fetchGithub(value, params[0]);
+  // console.log(data);
 };
 
 // parse the query before
