@@ -1,10 +1,6 @@
 body {
   height: 100vh;
   width: 100vw;
-  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-image: url('/images/coolbg.png');
-  background-position: center;
-  background-size: cover;
   overflow: hidden;
 }
 
@@ -15,8 +11,7 @@ body {
   background-image: url('/images/coolbg.png');
   background-position: center;
   background-size: cover;
-  overflow: hidden;
-
+  overflow-x: hidden;
 }
 
 /* desert scheme ported from vim to google prettify */
@@ -51,10 +46,10 @@ li.L1,li.L3,li.L5,li.L7,li.L9 {
   -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
   box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+  width: '100%';
 }
 
 #recommended-field {
-  height: 180px;
   background: white;
   border-radius: 10px;
   padding: 20px;
@@ -63,13 +58,18 @@ li.L1,li.L3,li.L5,li.L7,li.L9 {
   -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
   box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
-  overflow: auto;
+  overflow: hidden;
   white-space: nowrap;
 }
 
+.horizontal-scroll {
+  width: '100%';
+  overflow-x: scroll;
+}
+
 .horizontal-scroll .card {
-  white-space: wrap;
-  overflow:hidden;
+  overflow-y:hidden;
+  overflow-x: scroll;
   margin: 10px;
   display: inline-block;
   height: 120px;
@@ -81,16 +81,13 @@ li.L1,li.L3,li.L5,li.L7,li.L9 {
 
 .prototype {
   height: 460px;
-  width: 300px;
   border-radius: 10px;
   background: white;
-  margin-left: 10px;
-  margin-right: 21px;
   padding: 20px;
   -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
   box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 #prototype-row {
@@ -98,6 +95,7 @@ li.L1,li.L3,li.L5,li.L7,li.L9 {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  flex: 1;
 }
 
 #prototype-header {
@@ -107,19 +105,9 @@ li.L1,li.L3,li.L5,li.L7,li.L9 {
   align-items: flex-start;
 }
 
-#code-commands {
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .command-list {
   height: 400px;
-}
-
-#code-field {
+  overflow-y: scroll;
   width: '100%';
 }
 
@@ -154,6 +142,40 @@ li.L1,li.L3,li.L5,li.L7,li.L9 {
   height: 30px;
 }
 
+.welcome-modal {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.welcome-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.welcome-text-4, .welcome-text-5, .welcome-text-6 {
+  text-align: center;
+}
+
+.welcome-text-4 {
+  font-weight: 900;
+  font-size: 21px;
+  font-family: 'Lucida Sans Regular', Geneva, Verdana, sans-serif;
+}
+
+.welcome-text-5 {
+  font-style: oblique;
+}
+
+.welcome-text-6 {
+  font-weight: 300;
+}
+
 @keyframes pulse {
   to {
     transform: scale(0.8);
@@ -164,15 +186,12 @@ li.L1,li.L3,li.L5,li.L7,li.L9 {
 @media only screen and (max-width: 1000px) {
   .prototype {
     flex: 1;
-
   }
+}
 
-  body {
-    overflow-y: scroll;
-  }
-
-  .body {
-    overflow-y: scroll;
+@media only screen and (max-width: 760px) {
+  .prototype {
+    margin-top: 30px;
   }
 }
 

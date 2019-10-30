@@ -14,31 +14,72 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/ace.js" type="text/javascript" charset="utf-8"></script>
+
   <!-- Stylesheets -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel='stylesheet' href='/stylesheets/style.css' />
 
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/devbot_favicons.ico/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60"
+    href="/images/devbot_favicons.ico/images/devbot_favicons.ico/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/devbot_favicons.ico/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/devbot_favicons.ico/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/devbot_favicons.ico/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/devbot_favicons.ico/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/devbot_favicons.ico/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/devbot_favicons.ico/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/devbot_favicons.ico/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/devbot_favicons.ico/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/devbot_favicons.ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/images/devbot_favicons.ico/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/devbot_favicons.ico/favicon-16x16.png">
+  <link rel="manifest" href="/images/devbot_favicons.ico/manifest.json">
+  <meta name="msapplication-TileColor" content="">
+  <meta name="msapplication-TileImage" content="/images/devbot_favicons.ico/ms-icon-144x144.png">
+  <meta name="theme-color" content="">
+
   <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
-
-  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
   <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
-
-  <!-- Add Firebase products that you want to use -->
   <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
-
-
 </head>
 
 <body>
+  <!-- Welcome message -->
+  <div class="modal fade" id="welcome" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="welcome-modal">
+          <h1>Welcome to</h1><br>
+          <img src="/images/devbot.png" height=110 width=300 />
+          <br>
+          <br>
+          <h5 class="welcome-text-5">"Alexa, Launch DevBot"</h5>
+          <br>
+          <h5 class="welcome-text-4">
+            <hr />
+            Significantly reduce coding time with <br> voice-recognition technology
+            <hr />
+          </h5>
+          <br>
+          <p class="welcome-text-6">You need an Alexa-enabled device to run this program</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Alert -->
+  <div id="custom-alert"></div>
 
   <!-- Main body of app -->
   <div class="jumbotron body" style="padding-top: 20px !important;">
     <div class="row" id="big-header-row">
-      <h3 class="header">Welcome to &lt;DevBot /&gt;.</h3>
+      <h3 class="header">Start Coding With <img src="/images/devbot.png" height=60 width=170
+          style="margin-bottom: 3px; margin-left: 3px;" />!</h3>
       <div style="display: flex; flex-direction: row; justify-content: space-between;">
         <h4 style="margin-bottom: 30px; margin-right: 10px;">Toggle:</h4>
         <select id="language-switch">
@@ -56,34 +97,32 @@
         </select>
       </div>
     </div>
+
+    <!-- Coding editor and Quick Commands -->
     <div class="row">
-      <div id="code-commands">
-        <div class="col-lg-12">
-          <div id="code-field"></div>
-        </div>
+      <div class="col-lg-8 col-md-7 col-sm-12">
+        <div id="code-field"></div>
       </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="prototype">
-            <div id="prototype-row">
-              <div id="prototype-header">
-                <h5>Quick Commands</h5>
-                <p style="font-size: 14px;">Usage: "DevBot {command}"</p>
-              </div>
-              <div id="contact"><button type="button" class="btn btn-primary btn"
-                  style="background-color: #990099 !important;" data-toggle="modal"
-                  data-target="#contact-modal">+</button></div>
+      <div class="col-lg-4 col-md-5 col-sm-12">
+        <div class="prototype">
+          <div id="prototype-row">
+            <div id="prototype-header">
+              <h5>Quick Commands</h5>
+              <p style="font-size: 14px;">Usage: "DevBot {command}"</p>
             </div>
-            <div class="command-list">
-              <% data.forEach(function(command){ %>
-              <div class="card text-white bg-primary mb-3"
-                style="max-width: 18rem; background-color: #990099 !important;">
-                <div class="card-body">
-                  <h5 class="card-text"><%= command.shortcut %></h5>
-                </div>
+            <div id="contact"><button type="button" class="btn btn-primary btn"
+                style="background-color: #990099 !important;" data-toggle="modal"
+                data-target="#contact-modal">+</button></div>
+          </div>
+          <div class="command-list">
+            <% data.forEach(function(command){ %>
+            <div class="card text-white bg-primary mb-3" style="background-color: #990099 !important;">
+              <div class="card-body">
+                <h5 class="card-text"><%= command.shortcut %></h5>
               </div>
-              <% }) %>
             </div>
+            <% }) %>
+            <br><br>
           </div>
         </div>
       </div>
@@ -91,6 +130,12 @@
 
     <!-- Recommended Sources -->
     <div id="recommended-field">
+      <div id="prototype-row">
+        <div id="prototype-header">
+          <h5>Suggested Resources</h5>
+          <p style="font-size: 14px;">Usage: "Search {topic} for me" or "How to {topic}"</p>
+        </div>
+      </div>
       <div class="horizontal-scroll">
         <div class="card" style="width: 13rem;">
           <a href="https://docs.python.org/3/"><img class="card-img-top" width=auto height=130 src="/images/python.jpg"
@@ -183,49 +228,16 @@
   </div>
 </body>
 
+<!-- On-ready alert -->
+<script src="/javascripts/init.js"></script>
+
 <!-- ACE Themes -->
-<script>
-  var editor = ace.edit("code-field");
-  editor.setTheme("ace/theme/xcode");
-  editor.session.setMode('ace/mode/swift');
-  editor.setValue('class DevBot {\n\n}');
-  $(document).on('change', '#language-switch', function () {
-    const language = $('#language-switch').val();
-    editor.session.setMode(`ace/mode/${language.toLowerCase()}`);
-  });
-</script>
+<script src="/javascripts/ace.js"></script>
 
 <!-- Loading animation and post requests -->
-<script>
-  $('#create-btn').removeAttr('disabled');
-  $('#loader').hide();
-  $('#submit_text').text('Create');
-  $('#create-btn').click(e => {
-    if (!$('#shortcut_input').val() || !$('#data_input').val()) return false;
-    $('#create-btn').attr('disabled', 'true');
-    $('#loader').show();
-    $('#submit_text').text('Loading...');
-    let post_data = {
-      shortcut: $('#shortcut_input').val(),
-      language: $('#language').val(),
-      full: $('#data_input').val()
-    }
-    $.post('/create', post_data, function (data) {
-      if (data) setTimeout(() => {
-        window.location.href = '/';
-        document.location.refresh();
-        $('#create-btn').removeAttr('disabled');
-        $('#loader').hide();
-        $('#submit_text').text('Create');
-        if (data === 'Failure') {
-          alert("Please enter a unique shortcut!")
-        }
-      }, 1500);
-    });
-  });
-</script>
+<script type="module" src="/javascripts/createcommand.mjs"></script>
 
 <!-- Firebase -->
-<script src="/javascripts/firebase.js"></script>
+<script type="module" src="/javascripts/firebase.mjs"></script>
 
 </html>

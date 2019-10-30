@@ -1,25 +1,9 @@
 const MongoClient = require("mongodb").MongoClient;
 const uri =
   "mongodb+srv://howardwang:234Ar234@cluster0-vuff4.mongodb.net/test?retryWrites=true&w=majority";
-const request = require("request");
-const https = require("https");
-
-var options = { 
-  server: { 
-    socketOptions: { 
-      keepAlive: 300000, connectTimeoutMS: 30000 
-    } 
-  }, 
-  replset: { 
-    socketOptions: { 
-      keepAlive: 300000, 
-      connectTimeoutMS : 30000 
-    } 
-  } 
-};
 
 const addCommand = (collect, shortcut, language, body) => {
-  const client = new MongoClient(process.env.DATABASE_URI, options, {
+  const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
@@ -33,8 +17,12 @@ const addCommand = (collect, shortcut, language, body) => {
 
     console.log("Connected to DB!");
 
+    const check = collection.findOne({ shortcut: shortcut.toLowerCase() });
+
+    if (check) return false;
+
     collection.insertOne({
-      shortcut,
+      shortcut: shortcut.toLowerCase(),
       language,
       body,
       default: false

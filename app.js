@@ -1,3 +1,4 @@
+// Import express and mongo
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -14,55 +15,44 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("./public"));
-var options = {
-  server: {
-    socketOptions: {
-      keepAlive: 300000,
-      connectTimeoutMS: 30000
-    }
+
+// Offline data
+var tempResult = [
+  {
+    shortcut: "while {condition}",
+    language: "Python",
+    body: "while ({condition}) {}",
+    default: true
   },
-  replset: {
-    socketOptions: {
-      keepAlive: 300000,
-      connectTimeoutMS: 30000
-    }
+  {
+    shortcut: "for each {list}",
+    language: "Python",
+    body: "for (Object item : {list}) {}",
+    default: true
+  },
+  {
+    shortcut: "for {int} until {int}",
+    language: "Python",
+    body: "for (int i={int}; i<{int}; i++) {}",
+    default: true
+  },
+  {
+    shortcut: "hello world",
+    language: "Python",
+    body: "class HelloWorld {}",
+    default: false
   }
-};
+];
+
 /* GET home page. */
 app.get("/", async function(req, res) {
-  const client = new MongoClient(uri, options, {
+  const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
-  var tempResult = [
-    {
-      shortcut: "while {condition}",
-      language: "Python",
-      body: "while ({condition}) {}",
-      default: true
-    },
-    {
-      shortcut: "for each {list}",
-      language: "Python",
-      body: "for (Object item : {list}) {}",
-      default: true
-    },
-    {
-      shortcut: "for {int} until {int}",
-      language: "Python",
-      body: "for (int i={int}; i<{int}; i++) {}",
-      default: true
-    },
-    {
-      shortcut: "hello world",
-      language: "Python",
-      body: "class HelloWorld {}",
-      default: false
-    }
-  ];
   client.connect(err => {
     if (err) {
-      res.render("index", { data: tempResult });
+      return res.render("index", { data: tempResult });
     }
 
     const db = client.db("cluster0");
@@ -102,28 +92,15 @@ app.post("/create", function(req, res) {
 
   const check = addCommand("commands", shortcut, language, full);
 
-  res.send(check ? "success!" : "Failure!");
+  res.send(check ? "success" : "failure");
 });
-var options = {
-  server: {
-    socketOptions: {
-      keepAlive: 1000000,
-      connectTimeoutMS: 100000
-    }
-  },
-  replset: {
-    socketOptions: {
-      keepAlive: 1000000,
-      connectTimeoutMS: 100000
-    }
-  }
-};
+
 /* Receive alexa query */
 app.post("/alexa", async function(req, res) {
   const body = req && req.body;
   const { data: query } = body;
 
-  const client = new MongoClient(uri, options, {
+  const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
@@ -145,7 +122,7 @@ app.post("/alexa", async function(req, res) {
       return new Promise((resolve, reject) => {
         db.collection("commands")
           .find({
-            $query: { shortcut: newQuery },
+            $query: { shortcut: newQuery.toLowerCase() },
             $orderBy: { default: true }
           })
           .toArray(function(err, data) {
